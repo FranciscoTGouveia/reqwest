@@ -756,7 +756,7 @@ impl ClientBuilder {
                         }
 
                         let verifier = if config.root_certs.is_empty() {
-                            rustls_platform_verifier::Verifier::new(provider.clone())
+                            rustls_platform_verifier::Verifier::new(provider)
                                 .map_err(crate::error::builder)?
                         } else {
                             #[cfg(any(
@@ -766,7 +766,7 @@ impl ClientBuilder {
                             {
                                 rustls_platform_verifier::Verifier::new_with_extra_roots(
                                     crate::tls::rustls_der(config.root_certs)?,
-                                    provider.clone(),
+                                    provider,
                                 )
                                 .map_err(crate::error::builder)?
                             }
